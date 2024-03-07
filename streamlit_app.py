@@ -19,7 +19,7 @@ PROXYSCRAPE_URL = "https://api.proxyscrape.com/v2/"
 
 
 @st.cache_data(show_spinner=False, ttl=180)
-def get_proxyscrape_list(country: str='FR') -> Tuple[bool, Union[List, str]]::
+def get_proxyscrape_list(country: str='FR') -> Tuple[bool, Union[List, str]]:
     params = {
         'request': 'displayproxies',
         'protocol': 'socks5',
