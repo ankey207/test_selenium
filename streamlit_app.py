@@ -12,6 +12,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 from lxml import etree, html
 from typing import Tuple, List, Union
 
@@ -152,15 +154,15 @@ def run_selenium(logpath: str) -> Tuple[str, List, List, str]:
             time.sleep(2)
             html_content = driver.page_source
             # Wait for the element to be rendered:
-            element = WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.XPATH, value=xpath))
-            name = element[0].get_attribute('src')
+            name = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.XPATH, '//mw-qr-code/img')))
+            lien_image = name.get_attribute('src')
         except Exception as e:
             st.error(body='Selenium Exception occured!', icon='🔥')
             st.text(f'{str(e)}\n' f'{repr(e)}')
         finally:
             performance_log = driver.get_log('performance')
             browser_log = driver.get_log('browser')
-    return name, performance_log, browser_log, html_content
+    return lien_image
 
 
 if __name__ == "__main__":
@@ -195,10 +197,11 @@ if __name__ == "__main__":
 
         if st.button('Start Selenium run'):
             st.warning('Selenium is running, please wait...', icon='⏳')
-            result, performance_log, browser_log, html_content = run_selenium(logpath=logpath)
+            result = run_selenium(logpath=logpath)
             if result is None:
                 st.error('There was an error, no result found!', icon='🔥')
             else:
-                st.info(f'Result -> {result}')
-                st.image(result[0], width=50, use_column_width='auto')
+                image_placeholder = st.empty()
+                image_placeholder.image(result, width=50, use_column_width='auto')
+                st.write(result)
             
