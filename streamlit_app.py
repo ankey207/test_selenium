@@ -84,7 +84,7 @@ def get_chromedriver_path() -> str:
 
 
 @st.cache_resource(show_spinner=False)
-def get_webdriver_options(proxy: str = None) -> Options:
+def get_webdriver_options() -> Options:
     options = Options()
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
@@ -94,8 +94,6 @@ def get_webdriver_options(proxy: str = None) -> Options:
     options.add_argument("--window-size=1920x1080")
     options.add_argument("--disable-features=VizDisplayCompositor")
     options.add_argument('--ignore-certificate-errors')
-    if proxy is not None:
-        options.add_argument(f"--proxy-server=socks5://{proxy}")
     options.set_capability('goog:loggingPrefs', {'performance': 'ALL'})
     return options
 
@@ -142,10 +140,10 @@ def show_selenium_log(logpath: str):
         st.error('No log file found!', icon='🔥')
 
 
-def run_selenium(logpath: str, proxy: str=None) -> Tuple[str, List, List, str]:
+def run_selenium(logpath: str) -> Tuple[str, List, List, str]:
     name = None
     html_content = None
-    with webdriver.Chrome(options=get_webdriver_options(proxy=proxy),
+    with webdriver.Chrome(options=get_webdriver_options(),
                         service=get_webdriver_service(logpath=logpath)) as driver:
         url = "https://messages.google.com/web/authentication"
         xpath = '//mw-qr-code/img'
@@ -166,10 +164,6 @@ def run_selenium(logpath: str, proxy: str=None) -> Tuple[str, List, List, str]:
 
 
 if __name__ == "__main__":
-    if "proxy" not in st.session_state:
-        st.session_state.proxy = None
-    if "proxies" not in st.session_state:
-        st.session_state.proxies = None
     logpath=get_logpath()
     delete_selenium_log(logpath=logpath)
     st.set_page_config(page_title="Selenium Test", page_icon='🕸️', layout="wide",
@@ -188,23 +182,6 @@ if __name__ == "__main__":
             ''', unsafe_allow_html=True)
         st.markdown('---')
         middle_left, middle_middle, middle_right = st.columns([3, 1, 4], gap="small")
-        with middle_left:
-            st.header('Proxy')
-            enable_proxy = st.checkbox('Enable proxy to bypass geoip blocking', value=True)
-            if enable_proxy:
-                selected_country = 'FR'  # because the target website is in France
-                if st.button('Refresh proxies from free Socks5 list'):
-                    success, st.session_state.proxies = get_proxyscrape_list(country=selected_country)
-                    if success is False:
-                        st.error(f"No proxies for {selected_country} found", icon='🔥')
-                        st.error(st.session_state.proxies, icon='🔥')
-                if st.session_state.proxies:
-                    st.session_state.proxy = st.selectbox(label='Select a Socks5 proxy from the list', options=st.session_state.proxies, index=0)
-                    st.info(body=f'{st.session_state.proxy} {get_flag(selected_country)}', icon='😎')
-            else:
-                st.session_state.proxy = None
-                st.session_state.proxies = None
-                st.info('Proxy is disabled', icon='🔒')
         with middle_right:
             st.header('Versions')
             st.text('This is only for debugging purposes.\n'
@@ -217,9 +194,8 @@ if __name__ == "__main__":
         st.markdown('---')
 
         if st.button('Start Selenium run'):
-            st.info(f'Selected Proxy: {st.session_state.proxy}', icon='☢️')
             st.warning('Selenium is running, please wait...', icon='⏳')
-            result, performance_log, browser_log, html_content = run_selenium(logpath=logpath, proxy=st.session_state.proxy)
+            result, performance_log, browser_log, html_content = run_selenium(logpath=logpath)
             if result is None:
                 st.error('There was an error, no result found!', icon='🔥')
             else:
