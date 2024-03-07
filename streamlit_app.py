@@ -319,31 +319,21 @@ if __name__ == "__main__":
                     texte_placeholder = st.empty()
 
                     #recuperation et affichage du code QR de manière actualise en standant le scan
-                    try:
-                        for i in range(60):
-                            # Récupération du QR code
-                            qrcode = driver.find_element(By.XPATH, '//mw-qr-code/img')
-                            lien_image = qrcode.get_attribute('src')
 
-                            texte_placeholder.write(
-                                """
-                                ### :black[SCANNER LE QR CODE]
-                                """
-                                )
-                            # Afficher l'image dans Streamlit
-                            image_placeholder.image(lien_image, width=50, use_column_width='auto')
+                    # Récupération du QR code
+                    qrcode = driver.find_element(By.XPATH, '//mw-qr-code/img')
+                    lien_image = qrcode.get_attribute('src')
 
-                            # Attendre 2 secondes avant de mettre à jour le QR code
-                            time.sleep(1)
+                    texte_placeholder.write(
+                        """
+                        ### :black[SCANNER LE QR CODE]
+                        """
+                        )
+                    # Afficher l'image dans Streamlit
+                    image_placeholder.image(lien_image, width=50, use_column_width='auto')
 
-                    #une fois le code QR scanné
-                    except:
-                        with image_placeholder:
-                            st.write('error')
-                        with texte_placeholder:
-                            st.write('error')
-
-                    time.sleep(2)
+                    # Attendre 2 secondes avant de mettre à jour le QR code
+                    time.sleep(1)
                     
 
         else:
