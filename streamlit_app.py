@@ -305,7 +305,7 @@ if __name__ == "__main__":
                     #lancement du navigateur
                     #driver = get_driver()
                     #driver =uc.Chrome(options=chrome_options)
-                    driver = run_selenium2(logpath=logpath)
+                    driver = webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
                     driver.set_window_size(650,750)
                     driver.get("https://messages.google.com/web/authentication")
                     time.sleep(5)
