@@ -6,3 +6,4 @@ lxml
 countryflag
 streamlit_antd_components
 openpyxl
+undetected_chromedriver
