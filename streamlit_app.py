@@ -339,57 +339,12 @@ if __name__ == "__main__":
                     #une fois le code QR scanné
                     except:
                         with image_placeholder:
-                            st.write('')
+                            st.write('error')
                         with texte_placeholder:
-                            st.write('')
+                            st.write('error')
 
                     time.sleep(2)
-                    # Boucle à travers les contacts
-                    for i in range(len(df)):
-                        # Clique sur le bouton pour commencer une nouvelle conversation
-                        try:
-                            new_conversation = wait_element.until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Démarrer")))
-                        except:
-                            new_conversation = wait_element.until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, "Start")))
-                        new_conversation.click()
-
-                       # Saisie du numéro de téléphone
-                        wait_element.until(EC.presence_of_element_located((By.CLASS_NAME, "input")))
-                        zone_number = driver.find_element(By.CLASS_NAME, "input")
-                        zone_number.send_keys(str(NUMEROS[i]))
-
-                        # Confirme le numéro de téléphone
-                        wait_element.until(EC.presence_of_element_located((By.CLASS_NAME, "button")))
-                        confirm_number = driver.find_element(By.CLASS_NAME, "button")
-                        confirm_number.click()
-
-                        if une_puce == "NON":
-                            # Clique sur le bouton de changement de carte SIM
-                            change_sim_button = wait_element.until(EC.presence_of_element_located((By.CSS_SELECTOR, '.sim-info-picker-button')))
-                            change_sim_button.click()
-
-                            #on recuperer le cadrant contenant les sim dans le but d'extraire les noms des sims
-                            cadrant_sim = wait_element.until(EC.presence_of_element_located((By.XPATH ,'//div[@role="menu"]')))
-                            
-                            #on selectionne la bonne sim
-                            wait_sim = WebDriverWait(cadrant_sim, 120)
-                            wait_sim.until(EC.presence_of_element_located((By.TAG_NAME,'button')))
-                            good_sim =cadrant_sim.find_elements(By.TAG_NAME,'button')[sim_number]
-                            good_sim.click()
-
-                        # Saisie du message dans la zone de texte
-                        zone_text = wait_element.until(EC.presence_of_element_located((By.TAG_NAME, "textarea")))
-                        zone_text.send_keys(messages[i])
-
-                        # Envoi du SMS
-                        send_sms = wait_element.until(EC.element_to_be_clickable((By.CLASS_NAME, 'inline-send-button')))
-                        time.sleep(1)
-                        send_sms.click()
-
-                    driver.quit()
-                    st.success("Vos messages ont été envoyées avec succès", icon="✅")
-
-
+                    
 
         else:
             st.info("Bienvenue dans notre application SmartSMS ! Vous pouvez envoyer des SMS personnalisés en masse. Avant de commencer, veuillez charger un fichier de contacts.", icon="ℹ️")
