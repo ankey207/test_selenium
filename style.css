@@ -1,0 +1,141 @@
+div[data-testid="stMetric"]{
+	background-color: #ffffff;
+  border: 1px solid #0c29ff; /* Contour violet */
+	color: #0c29ff; /* Texte en violet */
+	border-radius: 10px; /* Coins arrondis */
+	padding: 15px; /* Espace intérieur pour le contenu */
+	margin: 1px auto; /* Marges autour de l'élément */
+	border-bottom: 5px solid #0c29ff;
+	height: 50px;
+	display: flex; /* Utiliser un conteneur flex pour placer les enfants sur la même ligne */
+	justify-content: space-between; /* Espacement égal entre les enfants pour les aligner sur la même ligne */
+	align-items: center;
+}
+
+/* BLOC OU LIGNE STREAMLIT */
+div[data-testid="stHorizontalBlock"]{
+	background-color: #e3ebf9;
+  padding: 5px;
+  border-radius: 15px;
+
+}
+
+
+.gtitle{
+	text-decoration: underline;
+	color: #2c68cb;
+	text-align: center;
+}
+
+div[data-testid="stImage"]{
+	border-radius: 20px; /* Coins arrondis */
+	border: 1px  #0c29ff;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+img{
+  border: 1px solid #0c29ff; /* Contour violet */
+	color: #0c29ff; /* Texte en violet */
+	border-radius: 10px; /* Coins arrondis */
+	padding: 15px; /* Espace intérieur pour le contenu */
+	margin: 1px auto; /* Marges autour de l'élément */
+	border-bottom: 5px solid #0c29ff;
+	display: flex; /* Utiliser un conteneur flex pour placer les enfants sur la même ligne */
+	justify-content: space-between; /* Espacement égal entre les enfants pour les aligner sur la même ligne */
+	align-items: center;
+
+}
+svg{
+	border-radius: 20px; /* Coins arrondis */
+	border: 1px  #0c29ff;
+}
+
+
+canvas{
+	border-radius: 20px; /* Coins arrondis */
+	border: 1px solid #0c29ff;
+}
+
+.block-container {
+	margin-top: 0;
+  padding-top: 0;
+  position: relative;
+  top: 0;
+
+}
+
+/*
+section[data-testid="stFileUploadDropzone"]{
+	font-size: 0;
+	color: transparent;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+}
+*/
+
+div[data-testid="stFileDropzoneInstructions"]{
+	display: none;
+}
+/*
+label[data-testid="stWidgetLabel"]{
+	display: none;
+}
+*/
+
+div[data-testid="stDropzoneInput"]{
+	display: none;
+}
+
+div[data-testid="stFileDropzoneInstructions"]{
+	display: none;
+}
+
+div[data-testid="stFileUploader"]{
+	display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+small{
+	display: none;
+}
+
+h1 {
+	display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+h2 {
+	border-top: 3px solid #5b488b;
+	background-color: #7390bb;
+	color: #fff;
+	text-align: center;
+	padding: 20px;
+	font-family: sans-serif;
+	font-size: 2rem;
+}
+
+h3 {
+	color: #0c171a;
+	text-align: center;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+
+div[id="root"]{
+  border-radius: 20px; /* Coins arrondis */
+	border: 1px solid #0c29ff;
+}
+
+
+rect{
+	width: 95%; /* La largeur du conteneur occupera 100% de la largeur disponible */
+}
