@@ -320,7 +320,7 @@ if __name__ == "__main__":
 
                     #recuperation et affichage du code QR de manière actualise en standant le scan
                     try:
-                        while True:
+                        for i in range(60):
                             # Récupération du QR code
                             qrcode = driver.find_element(By.XPATH, '//mw-qr-code/img')
                             lien_image = qrcode.get_attribute('src')
@@ -334,7 +334,7 @@ if __name__ == "__main__":
                             image_placeholder.image(lien_image, width=50, use_column_width='auto')
 
                             # Attendre 2 secondes avant de mettre à jour le QR code
-                            time.sleep(2)
+                            time.sleep(1)
 
                     #une fois le code QR scanné
                     except:
