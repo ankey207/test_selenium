@@ -13,13 +13,13 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from lxml import etree, html
-from typing import Tuple, List
+from typing import Tuple, List, Union
 
 PROXYSCRAPE_URL = "https://api.proxyscrape.com/v2/"
 
 
 @st.cache_data(show_spinner=False, ttl=180)
-def get_proxyscrape_list(country: str='FR') -> Tuple[bool, List|str]:
+def get_proxyscrape_list(country: str='FR') -> Tuple[bool, Union[List, str]]::
     params = {
         'request': 'displayproxies',
         'protocol': 'socks5',
