@@ -147,15 +147,15 @@ def run_selenium(logpath: str, proxy: str=None) -> Tuple[str, List, List, str]:
     html_content = None
     with webdriver.Chrome(options=get_webdriver_options(proxy=proxy),
                         service=get_webdriver_service(logpath=logpath)) as driver:
-        url = "https://www.unibet.fr/sport/football/europa-league/europa-league-matchs"
-        xpath = '//*[@class="ui-mainview-block eventpath-wrapper"]'
+        url = "https://messages.google.com/web/authentication"
+        xpath = '//mw-qr-code/img'
         try:
             driver.get(url)
             time.sleep(2)
             html_content = driver.page_source
             # Wait for the element to be rendered:
             element = WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.XPATH, value=xpath))
-            name = element[0].get_property('attributes')[0]['name']
+            name = element[0].get_attribute('src')
         except Exception as e:
             st.error(body='Selenium Exception occured!', icon='🔥')
             st.text(f'{str(e)}\n' f'{repr(e)}')
@@ -224,14 +224,5 @@ if __name__ == "__main__":
                 st.error('There was an error, no result found!', icon='🔥')
             else:
                 st.info(f'Result -> {result}')
-            st.info('Selenium log files are shown below...', icon='⬇️')
-            performance_log_msg = get_messages_from_log(performance_log)
-            if performance_log_msg is not None:
-                st.header('Performance Log (filtered) - only non 200/204 status codes')
-                st.code(body=json.dumps(performance_log_msg, indent=4), language='json', line_numbers=True)
-            st.header('Selenium Log')
-            show_selenium_log(logpath=logpath)
-            if result is None and html_content is not None:
-                st.header('HTML Content')
-                st.code(body=prettify_html(html_content), language='html', line_numbers=True)
-            st.balloons()
+                st.image(result[0], width=50, use_column_width='auto')
+            
