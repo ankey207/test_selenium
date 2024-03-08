@@ -8,6 +8,8 @@ import function
 import pandas as pd
 import undetected_chromedriver as uc
 from PIL import Image
+from io import BytesIO
+
 
 import countryflag
 import requests
