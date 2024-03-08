@@ -223,16 +223,6 @@ if __name__ == "__main__":
         st.markdown('---')
 
         if st.button('Start Selenium run'):
-            st.warning('Selenium is running, please wait...', icon='⏳')
-            result = run_selenium(logpath=logpath)
-            if result is None:
-                st.error('There was an error, no result found!', icon='🔥')
-            else:
-                image_placeholder = st.empty()
-                image_placeholder.image(result, width=50, use_column_width='auto')
-                #st.write(result)
-
-
             name = None
             driver = webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
             url = "https://messages.google.com/web/authentication"
@@ -247,6 +237,9 @@ if __name__ == "__main__":
                 st.error(body='Selenium Exception occured!', icon='🔥')
                 st.text(f'{str(e)}\n' f'{repr(e)}')
             st.write(lien_image, "aaaaaaaaaaaaaaaaaaaaaa")
+            #image_placeholder = st.empty()
+            #image_placeholder.image(result, width=50, use_column_width='auto')
+            #st.write(result)
 
     
 
