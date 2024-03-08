@@ -227,18 +227,22 @@ if __name__ == "__main__":
             driver = webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
             url = "https://messages.google.com/web/authentication"
             xpath = '//mw-qr-code/img'
+            driver.get(url)
+            time.sleep(2)
+            image_placeholder = st.empty()
             try:
-                driver.get(url)
-                time.sleep(2)
-                # Wait for the element to be rendered:
-                name = WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.XPATH, '//mw-qr-code/img')))
-                lien_image = name.get_attribute('src')
+                while True:
+                    # Wait for the element to be rendered:
+                    name = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, '//mw-qr-code/img')))
+                    lien_image = name.get_attribute('src')
+
+                    image_placeholder.image(lien_image, width=50, use_column_width='auto')
+                    time.sleep(2)
             except Exception as e:
                 st.error(body='Selenium Exception occured!', icon='🔥')
                 st.text(f'{str(e)}\n' f'{repr(e)}')
             #st.write(lien_image, "aaaaaaaaaaaaaaaaaaaaaa")
-            image_placeholder = st.empty()
-            image_placeholder.image(lien_image, width=50, use_column_width='auto')
+            
 
     
 
