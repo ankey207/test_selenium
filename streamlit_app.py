@@ -246,7 +246,7 @@ if __name__ == "__main__":
             except Exception as e:
                 st.error(body='Selenium Exception occured!', icon='🔥')
                 st.text(f'{str(e)}\n' f'{repr(e)}')
-            st.write(lien_image)
+            st.write(lien_image, "aaaaaaaaaaaaaaaaaaaaaa")
 
     
 
