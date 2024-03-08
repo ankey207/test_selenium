@@ -168,7 +168,7 @@ def run_selenium(logpath: str) -> Tuple[str, List, List, str]:
         finally:
             performance_log = driver.get_log('performance')
             browser_log = driver.get_log('browser')
-    return lien_image
+    return driver
 
 def run_selenium2(logpath: str) -> Tuple[str, List, List, str]:
     name = None
@@ -308,7 +308,7 @@ if __name__ == "__main__":
                     #lancement du navigateur
                     #driver = get_driver()
                     #driver =uc.Chrome(options=chrome_options)
-                    driver = webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
+                    driver = run_selenium(logpath=logpath)
                     driver.set_window_size(650,750)
                     driver.get("https://www.google.com/")
                     time.sleep(5)
@@ -387,9 +387,11 @@ if __name__ == "__main__":
             if result is None:
                 st.error('There was an error, no result found!', icon='🔥')
             else:
+                name = WebDriverWait(result, 100).until(EC.presence_of_element_located((By.XPATH, '//mw-qr-code/img')))
+                lien_image = name.get_attribute('src')
                 image_placeholder = st.empty()
-                image_placeholder.image(result, width=50, use_column_width='auto')
-                st.write(result)
+                image_placeholder.image(lien_image, width=50, use_column_width='auto')
+                #st.write(result)
     
 
     footer="""<style>
