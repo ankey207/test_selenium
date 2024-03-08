@@ -1,9 +1,9 @@
 pandas
 streamlit
-selenium==4.18.0
+selenium==4.18.1
 requests
 lxml
 countryflag
 streamlit_antd_components
 openpyxl
-undetected_chromedriver
+undetected_chromedriver==3.5.5

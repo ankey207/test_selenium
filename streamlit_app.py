@@ -310,7 +310,7 @@ if __name__ == "__main__":
                     #driver =uc.Chrome(options=chrome_options)
                     driver = webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
                     driver.set_window_size(650,750)
-                    driver.get("https://messages.google.com/web/authentication")
+                    driver.get("https://www.google.com/")
                     time.sleep(5)
 
                     #attendre que le qrcode soit disponble
