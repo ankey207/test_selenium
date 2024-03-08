@@ -227,7 +227,7 @@ if __name__ == "__main__":
 
         if st.button('Start Selenium run'):
             name = None
-            driver = webdriver.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
+            driver = uc.Chrome(options=get_webdriver_options(), service=get_webdriver_service(logpath=logpath))
             url = "https://messages.google.com/web/authentication"
             xpath = '//mw-qr-code/img'
             try:
