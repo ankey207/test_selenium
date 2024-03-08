@@ -221,6 +221,7 @@ if __name__ == "__main__":
                     f'- Python:        {get_python_version()}\n'
                     f'- Streamlit:     {st.__version__}\n'
                     f'- Selenium:      {webdriver.__version__}\n'
+                    f'- undetected_chromedriver:      {uc.__version__}\n'
                     f'- Chromedriver:  {get_chromedriver_version()}\n'
                     f'- Chromium:      {get_chromium_version()}')
         st.markdown('---')
